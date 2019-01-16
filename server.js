@@ -21,15 +21,28 @@ const activitySchema = new mongoose.Schema({
 });
 
 var Activity = mongoose.model("Activity", activitySchema);
-app.get("/activity", (req, res) => {
-  async function getActivity() {
-    const result = await Activity.find();
+
+app.get("/api/activities", (req, res) => {
+  if (Object.keys(req.query).length == 0) {
+    async function getActivities() {
+      const result = await Activity.find();
+      res.send(result);
+    }
+    getActivities();
+  } else {
+    async function getActivities() {
+      let filter = [];
+      for (let tag in req.query.tags) {
+        filter.push({ tags: { $in: [req.query.tags[tag]] } });
+      }
+      const result = await Activity.find().and(filter);
+      res.send(result);
+    }
+    getActivities();
   }
-  getActivity();
-  res.send("success");
 });
 
-app.post("/activity", (req, res) => {
+app.post("/api/activities", (req, res) => {
   async function createActivity() {
     const activity = new Activity({
       name: req.body.name,
@@ -42,14 +55,9 @@ app.post("/activity", (req, res) => {
   res.send("success");
 });
 
-app.get("/activities", (req, res) => {
+app.get("/api/activities/:id", (req, res) => {
   async function getActivity() {
-    let filter = [];
-    for (let tag in req.query.tags) {
-      filter.push({ tags: { $in: [req.query.tags[tag]] } });
-    }
-
-    const result = await Activity.find().and(filter);
+    const result = await Activity.findById(req.params.id);
     res.send(result);
   }
   getActivity();
