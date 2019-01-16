@@ -50,9 +50,9 @@ app.post("/api/activities", (req, res) => {
       description: req.body.description
     });
     const result = await activity.save();
+    res.send(result);
   }
   createActivity();
-  res.send("success");
 });
 
 app.get("/api/activities/:id", (req, res) => {
@@ -81,6 +81,15 @@ app.put("/api/activities/:id", (req, res) => {
     res.send(result);
   }
   updateActivity();
+});
+
+app.delete("/api/activities/:id", (req, res) => {
+  async function deleteActivity() {
+    const result = await Activity.deleteOne({ _id: req.params.id });
+    res.send(result);
+  }
+
+  deleteActivity();
 });
 
 app.listen(port, () => {
