@@ -63,6 +63,26 @@ app.get("/api/activities/:id", (req, res) => {
   getActivity();
 });
 
+app.put("/api/activities/:id", (req, res) => {
+  console.log(req.body.name);
+  console.log(req.params.id);
+  async function updateActivity() {
+    const result = await Activity.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          name: req.body.name,
+          description: req.body.description,
+          tags: req.body.tags
+        }
+      },
+      { new: true }
+    );
+    res.send(result);
+  }
+  updateActivity();
+});
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
