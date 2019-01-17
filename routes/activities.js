@@ -3,7 +3,9 @@ const router = express.Router();
 
 const mongoose = require("mongoose");
 mongoose
-  .connect("mongodb://localhost/playground")
+  .connect(
+    "mongodb://tour-guide-user:chalons51@ds159634.mlab.com:59634/tour-guide"
+  )
   .then(() => console.log("connected to mongodb"))
   .catch(err => console.log("err"));
 
