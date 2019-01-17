@@ -7,7 +7,7 @@ app.use(express.json());
 app.use("/api/activities", activities);
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Hello World !!");
 });
 
 app.listen(process.env.PORT || port, () =>
