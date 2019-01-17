@@ -16,6 +16,7 @@ const activitySchema = new mongoose.Schema({
 var Activity = mongoose.model("Activity", activitySchema);
 
 router.get("/", (req, res) => {
+  console.log("get activities");
   if (Object.keys(req.query).length == 0) {
     async function getActivities() {
       const result = await Activity.find();
