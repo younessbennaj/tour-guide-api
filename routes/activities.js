@@ -25,15 +25,28 @@ router.get("/", (req, res) => {
     }
     getActivities();
   } else {
-    async function getActivities() {
-      let filter = [];
-      for (let tag in req.query.tags) {
-        filter.push({ tags: { $in: [req.query.tags[tag]] } });
+    if (req.body.name) {
+      //Find activities by name
+      async function getActivitiesByName() {
+        const result = await Activity.find({
+          name: { $regex: new RegExp(`.*${req.query.name}.*`, "i") }
+        });
+        res.send(result);
       }
-      const result = await Activity.find().and(filter);
-      res.send(result);
+      getActivitiesByName();
     }
-    getActivities();
+    if (req.body.tags) {
+      //Find activities by tag
+      async function getActivities() {
+        let filter = [];
+        for (let tag in req.query.tags) {
+          filter.push({ tags: { $in: [req.query.tags[tag]] } });
+        }
+        const result = await Activity.find().and(filter);
+        res.send(result);
+      }
+      getActivities();
+    }
   }
 });
 
