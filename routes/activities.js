@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
     }
     getActivities();
   } else {
-    if (req.body.name) {
+    if (req.query.name) {
       //Find activities by name
       async function getActivitiesByName() {
         const result = await Activity.find({
