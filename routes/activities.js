@@ -35,7 +35,7 @@ router.get("/", (req, res) => {
       }
       getActivitiesByName();
     }
-    if (req.body.tags) {
+    if (req.query.tags) {
       //Find activities by tag
       async function getActivities() {
         let filter = [];
