@@ -12,6 +12,7 @@ mongoose
 const activitySchema = new mongoose.Schema({
   name: String,
   tags: [String],
+  url: [String],
   description: String
 });
 
@@ -55,6 +56,7 @@ router.post("/", (req, res) => {
     const activity = new Activity({
       name: req.body.name,
       tags: req.body.tags,
+      url: req.body.url,
       description: req.body.description
     });
     const result = await activity.save();
@@ -79,7 +81,8 @@ router.put("/:id", (req, res) => {
         $set: {
           name: req.body.name,
           description: req.body.description,
-          tags: req.body.tags
+          tags: req.body.tags,
+          url: req.body.url
         }
       },
       { new: true }
