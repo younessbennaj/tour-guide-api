@@ -12,7 +12,7 @@ mongoose
 const activitySchema = new mongoose.Schema({
   name: String,
   tags: [String],
-  url: [String],
+  url: String,
   description: String
 });
 
