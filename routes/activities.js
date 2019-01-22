@@ -13,7 +13,8 @@ const activitySchema = new mongoose.Schema({
   name: String,
   tags: [String],
   url: String,
-  description: String
+  description: String,
+  img: String
 });
 
 var Activity = mongoose.model("Activity", activitySchema);
@@ -57,7 +58,8 @@ router.post("/", (req, res) => {
       name: req.body.name,
       tags: req.body.tags,
       url: req.body.url,
-      description: req.body.description
+      description: req.body.description,
+      img: req.body.img
     });
     const result = await activity.save();
     res.send(result);
@@ -82,7 +84,8 @@ router.put("/:id", (req, res) => {
           name: req.body.name,
           description: req.body.description,
           tags: req.body.tags,
-          url: req.body.url
+          url: req.body.url,
+          img: req.body.img
         }
       },
       { new: true }
